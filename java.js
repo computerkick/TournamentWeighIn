@@ -3,7 +3,9 @@
 
 /*###########################################################################
 TO DO:
-Validate Team numbers don't duplicate
+  Validate Team numbers don't duplicate (DONE ln.19)
+Give an option to break out weights by boater and non-boater.
+Modify print to not show the entry header.
 ############################################################################*/
 
 /*
@@ -12,8 +14,19 @@ Take the submitted entry and create an array with the information.
 Loop through the array, updating the current list of teams
 */
 var teamArray = [];
+var teamBigFishHolder;
 var bigBagHolder = 0;
 var bigFishHolder = 0;
+
+//Validate no duplicate numbers on focus out
+$("#teamNumber").focusout(function(){
+  for(var i=0;i<teamArray.length;i++){
+    if($("#teamNumber").val() == teamArray[i].teamNumber){
+      alert("Team Number already exists");
+      $("#teamNumber").val("");
+    }
+  }
+});
 
 $("#addTeam").submit(function(event){
 
@@ -33,16 +46,11 @@ $("#addTeam").submit(function(event){
   //update the team listing at the bottom.
 $(".fullTeamList").append("<div class='teamLine'><div class='teamNumber'>Team:<br>"+teamObject.teamNumber+"</div><div class='boaters'><div class='boater'>"+teamObject.boater+"</div><div class='boater'>"+teamObject.nonBoater+"</div></div></div>");
 
-    //$(".teamNoCol").append("<div class='teamLines'>"+teamObject.teamNumber+"</div>");
-    //$(".boaterCol").append("<div class='teamLines'>"+teamObject.boater+"</div>");
-    //$(".nonBoaterCol").append("<div class='teamLines'>"+teamObject.nonBoater+"</div>");
-    /* $(".totalWeight").append("<div class='teamLines'><input type='text' size='5px'></div>");
-    $(".bigFish").append("<div class='teamLines'><input type='text' size='5px'></div>"); */
-
-    //reset the fields blank
+    //reset the fields blank and return focus to first field.
     $("#teamNumber").val("");
     $("#boaterName").val("");
     $("#nonBoaterName").val("");
+    $("#teamNumber").focus();
 
 });
 
@@ -51,22 +59,21 @@ $(".finishedTeams").click(function(){
   var result;
   if(result = window.confirm("Are you sure you're finished?")){
 
-    /*
+/*#############################################################################
+
     Build the Weigh In Page:
 
-    The angelers names will show under the weight in a smaller font
-    Fields: Team#, total weight, big fish (optional)
-    */
+#############################################################################*/
 
 //Replace Team building form with the new weigh in form
     $("#addTeam").replaceWith("<form id='weighIn'>\
     <div><label for 'teamNumber'>Team Number</label><br>\
     <input id='teamNumber' type='number' min='1' max='999' required></div>\
     <div><label for 'totalWeight'>Total Weight</label><br>\
-    <input id='totalWeight' type='text' required></div>\
+    <input id='totalWeight' type='text' maxlength='5' required></div>\
     <div><label for 'bigFish'>Big Fish</label><br>\
-    <input id='bigFish' type='text' required></div>\
-    <input id='submit' type='submit'></form>"
+    <input id='bigFish' type='text' maxlength='5' required></div>\
+    <input id='submit' style='margin-top:5px;' type='submit'></form>"
     );
     $(".title").remove();
 
@@ -99,6 +106,19 @@ $(".finishedTeams").click(function(){
                 if(!teamArray[i].totalWeight){teamArray[i].totalWeight = "0"}
                 if(!teamArray[i].bigFish){teamArray[i].bigFish = "0"}
 
+                //check the big bag and find the biggest one. Update the big field
+                if(teamArray[i].totalWeight > bigBagHolder){
+                  bigBagHolder = teamArray[i].totalWeight;
+                  var teamNumberHolder = teamArray[i].teamNumber;
+                }
+
+                //check the big fish and find the biggest one. Update the big field
+                if(teamArray[i].bigFish > bigFishHolder){
+                  bigFishHolder = teamArray[i].bigFish;
+                  teamBigFishHolder = teamArray[i].teamNumber
+                  console.log("Big fish TEam: "+teamBigFishHolder+" Weight: "+bigFishHolder);
+                }
+
                 $(".fullTeamList").append(
                 "<div class='teamLine'>\
                   <div class='teamNumber'>Team:<br>"+teamArray[i].teamNumber+"</div>\
@@ -110,18 +130,18 @@ $(".finishedTeams").click(function(){
                   <div class='teamNumber'>BF:<br>"+teamArray[i].bigFish+"</div>\
                 </div></div>");
               };
-
-              for(i=0;i<teamArray.length;i++){
-                //check the big bag and find the biggest one. Update the big field
-                if(teamArray[i].totalWeight > bigBagHolder){
-                  bigBagHolder = teamArray[i].totalWeight;
-                  var teamNumberHolder = teamArray[i].teamNumber;
-                }
-              };
+//Clear the entered weights in the form and reset focus to the team number.
+              $("#teamNumber").val("");
+              $("#totalWeight").val("");
+              $("#bigFish").val("");
+              $("#teamNumber").focus();
 
               $(".teamInfo").replaceWith("<div class='teamInfo'><b>TOP WEIGHT - </b>Team #: "+teamNumberHolder+"</div>");
               $(".topWeight").replaceWith("<div class='topWeight'>"+bigBagHolder+"</div>");
+              $(".bigFishInfo").replaceWith("<div class='bigFishInfo'><b>BIG FISH - </b>Team #: "+teamBigFishHolder+" ("+bigFishHolder+")")
+
               bigBagHolder = 0;
+              bigFishHolder = 0;
             }
       }
     });
