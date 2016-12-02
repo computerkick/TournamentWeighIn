@@ -12,6 +12,8 @@ Take the submitted entry and create an array with the information.
 Loop through the array, updating the current list of teams
 */
 var teamArray = [];
+var bigBagHolder = 0;
+var bigFishHolder = 0;
 
 $("#addTeam").submit(function(event){
 
@@ -70,8 +72,9 @@ $(".finishedTeams").click(function(){
 
     //build out the top weight display box below the form and above the team list
     $("<div class='topWeightBox'>\
-        <div class='teamInfo'><b>TOP WEIGHT - </b>Team #: 1</div>\
-        <div class='topWeight'>20.45</div>\
+        <div class='teamInfo'><b>TOP WEIGHT - </b>Team #: 0</div>\
+        <div class='topWeight'>00.00</div>\
+        <div class='bigFishInfo'><b>BIG FISH - </b>Team #: 0 (00.00)\
       </div>").insertAfter(".teamEntry");
 
       /*When the weigh in submit button is clicked, cycle through the teamArray
@@ -86,15 +89,16 @@ $(".finishedTeams").click(function(){
 //update the array with the new weight for this team.
             teamArray[i].totalWeight = $("#totalWeight").val();
             teamArray[i].bigFish = $("#bigFish").val();
-            console.log(teamArray[i]);
 
             /*Clear the current list of teams and rebuild it with the new information
             pulled from the array. */
             $(".fullTeamList").replaceWith("<div class='fullTeamList'></div>");
-//loop through the array and create a new list from every array index
+//loop through the array and create a new list from every array index, might as well
+//kill two birds and check for the biggest bag and fish.
               for(i=0;i<teamArray.length;i++){
                 if(!teamArray[i].totalWeight){teamArray[i].totalWeight = "0"}
                 if(!teamArray[i].bigFish){teamArray[i].bigFish = "0"}
+
                 $(".fullTeamList").append(
                 "<div class='teamLine'>\
                   <div class='teamNumber'>Team:<br>"+teamArray[i].teamNumber+"</div>\
@@ -106,6 +110,18 @@ $(".finishedTeams").click(function(){
                   <div class='teamNumber'>BF:<br>"+teamArray[i].bigFish+"</div>\
                 </div></div>");
               };
+
+              for(i=0;i<teamArray.length;i++){
+                //check the big bag and find the biggest one. Update the big field
+                if(teamArray[i].totalWeight > bigBagHolder){
+                  bigBagHolder = teamArray[i].totalWeight;
+                  var teamNumberHolder = teamArray[i].teamNumber;
+                }
+              };
+
+              $(".teamInfo").replaceWith("<div class='teamInfo'><b>TOP WEIGHT - </b>Team #: "+teamNumberHolder+"</div>");
+              $(".topWeight").replaceWith("<div class='topWeight'>"+bigBagHolder+"</div>");
+              bigBagHolder = 0;
             }
       }
     });
