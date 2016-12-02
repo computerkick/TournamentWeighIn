@@ -1,0 +1,108 @@
+<!--***************************************************************************
+Application created by Jason DeValadares for Orillia Fishing.
+Copyright 2016
+*****************************************************************************-->
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script
+  src="http://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+    <style>
+      html, body {
+        padding:0;
+        margin:0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      .title{
+        font-weight: bold;
+        text-align: center;
+        padding:0;
+        margin:0;
+      }
+      .teamEntry{
+        width:100%;
+        background-color: yellow;
+        padding:10px 0px;
+      }
+      .inputForm{
+        text-align: center;
+      }
+      .formError{
+        border: 2px solid red;
+      }
+      .fullTeamList{
+        margin:auto;
+      }
+      .teamLine {
+        width:100%;
+        display:block;
+      }
+      .teamNumber, .boaters{
+        display:inline-block;
+        border:1px solid lightblue;
+        border-radius: 5px;
+        padding:5px;
+        margin:5px;
+        text-align: center;
+      }
+      .boaters{
+        border:0px solid;
+      }
+      .boater{
+        background-color: lightblue;
+        margin-bottom: 1px;
+        border-radius: 5px;
+        padding:5px;
+      }
+      .headers{
+        font-weight:bold;
+      }
+      .topWeightBox{
+        text-align: center;
+        width:90%;
+        margin:10px auto;
+        border:1px solid lightblue;
+        border-radius: 5px;
+      }
+      .topWeightBox .teamInfo {
+        background-color: lightblue;
+      }
+      .topWeightBox .topWeight {
+        font-weight: bold;
+        font-size: 8em
+      }
+    </style>
+
+  </head>
+  <body>
+    <!--//The bottom of the page has the form that will have a submit button to update the full list-->
+  <div class="teamEntry">
+    <div class="inputForm">
+      <form id="addTeam">
+      <div><label for "teamNumber">Team Number</label><br>
+      <input id="teamNumber" type="number" min="1" max="999" required></div>
+      <div><label for "boaterName">Boater</label><br>
+      <input id="boaterName" type="text" maxlength="23" required></div>
+      <div><label for "nonBoaterName">Non-Boater</label><br>
+      <input id="nonBoaterName" type="text" maxlength="23" required></div>
+      <input id="submit" type="submit">
+      </form>
+    </div>
+    <p class="title"><input type="button" class="finishedTeams" value="TEAM ENTRY COMPLETE"></p>
+  </div>
+
+  <!-- building area -->
+
+
+    <!--Running team list for most of the Page-->
+    <div class="fullTeamList">
+
+    </div>
+
+
+<script src="java.js"></script>
+
+  </body>
+</html>
