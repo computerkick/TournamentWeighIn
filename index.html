@@ -1,0 +1,129 @@
+<!--***************************************************************************
+Application created by Jason DeValadares for Orillia Fishing.
+Copyright 2016
+*****************************************************************************-->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script
+  src="http://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+    <style>
+      html, body {
+        padding:0;
+        margin:0;
+        font-family: 'Open Sans', sans-serif;
+      }
+      .center{
+        margin:auto;
+      }
+      .title{
+        font-weight: bold;
+        text-align: center;
+        padding:0;
+        margin:0;
+      }
+      .teamEntry{
+        width:100%;
+        background-color: goldenrod;
+        background-position: center;
+        background-size:cover;
+        box-shadow: 0px 0px 10px black;
+        padding:10px 0px;
+        color:white;
+      }
+      .inputForm{
+        text-align: center;
+      }
+      input[type="text"], input[type="number"], input[type="submit"], input[type="button"]{
+        border: solid 1px #dcdcdc;
+        border-radius: 5px;
+        font-family: 'Open Sans', sans-serif;
+        padding:5px;
+        transition: box-shadow 0.3s, border 0.3s;
+      }
+      input[type="text"]:focus, input[type="number"]:focus, input[type="submit"]:focus, input[type="button"]:focus{
+        border: solid 1px #707070;
+        box-shadow: 0 0 5px 1px #969696;
+      }
+      .formError{
+        border: 2px solid red;
+      }
+      .fullTeamList{
+        margin:auto;
+        width:347px;
+      }
+      .teamLine {
+        width:100%;
+        display:block;
+      }
+      .teamNumber, .boaters{
+        display:inline-block;
+        border:1px solid lightblue;
+        border-radius: 5px;
+        padding:5px;
+        text-align: center;
+      }
+      .boaters{
+        border:0px solid;
+      }
+      .boater{
+        background-color: lightblue;
+        margin-bottom: 1px;
+        border-radius: 5px;
+        padding:5px;
+        width:150.250px;
+      }
+      .headers{
+        font-weight:bold;
+      }
+      .topWeightBox{
+        text-align: center;
+        width:90%;
+        margin:10px auto;
+        border:1px solid lightblue;
+        border-radius: 5px;
+      }
+      .topWeightBox .teamInfo, .topWeightBox .bigFishInfo {
+        background-color: lightblue;
+      }
+      .topWeightBox .topWeight {
+        font-weight: bold;
+        font-size: 8em
+      }
+    </style>
+
+  </head>
+  <body>
+    <!--//The bottom of the page has the form that will have a submit button to update the full list-->
+  <div class="teamEntry">
+    <div style="position:absolute; margin:5px; background-image: url(http://www.orilliafishing.com/images/OF-Logo.png); width: 50px; height:50px; background-position:center;background-size:cover;"></div>
+    <div class="inputForm">
+      <form id="addTeam">
+      <div><label for "teamNumber">Team Number</label><br>
+      <input id="teamNumber"type="number" min="1" max="999" required></div>
+      <div><label for "boaterName">Boater</label><br>
+      <input id="boaterName" class="textBoxes"  type="text" maxlength="20" required></div>
+      <div><label for "nonBoaterName">Non-Boater</label><br>
+      <input id="nonBoaterName" class="textBoxes"  type="text" maxlength="20" required></div>
+      <input id="submit" style="margin-top:5px;" type="submit">
+      </form>
+    </div>
+    <p class="title"><input type="button" class="finishedTeams" value="TEAM ENTRY COMPLETE"></p>
+  </div>
+
+  <!-- building area -->
+
+
+    <!--Running team list for most of the Page-->
+    <div class="fullTeamList">
+
+    </div>
+
+
+<script src="java.js"></script>
+
+  </body>
+</html>

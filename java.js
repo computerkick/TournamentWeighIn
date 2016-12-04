@@ -6,6 +6,7 @@ TO DO:
   Validate Team numbers don't duplicate (DONE ln.19)
 Give an option to break out weights by boater and non-boater.
 Modify print to not show the entry header.
+  BUG - Fix the maxlength field on mobile devices. (DONE Ln.44)
 ############################################################################*/
 
 /*
@@ -39,6 +40,11 @@ $("#addTeam").submit(function(event){
     boater: $("#boaterName").val(),
     nonBoater: $("#nonBoaterName").val()
   };
+
+//Mobile fix for input length
+  if(teamObject.boater.length > 20){teamObject.boater = teamObject.boater.slice(0,20)};
+  if(teamObject.nonBoater.length > 20){teamObject.nonBoater = teamObject.nonBoater.slice(0,20)};
+//END mobile input length fix
 
 //store the data in a growing object array
   teamArray.push(teamObject);
