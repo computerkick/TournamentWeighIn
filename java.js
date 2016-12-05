@@ -73,13 +73,15 @@ $(".finishedTeams").click(function(){
 
 //Replace Team building form with the new weigh in form
     $("#addTeam").replaceWith("<form id='weighIn'>\
-    <div><label for 'teamNumber'>Team Number</label><br>\
+    <div style='font-size:.75em;'>Break out weights by angler: <input type='checkbox' id='breakOutWeights'></div>\
+    <div><label for '#teamNumber'>Team Number</label><br>\
     <input id='teamNumber' type='number' min='1' max='999' required></div>\
-    <div><label for 'totalWeight'>Total Weight</label><br>\
+    <div><label for '#totalWeight'>Total Weight</label><br>\
     <input id='totalWeight' type='text' maxlength='5' required></div>\
-    <div><label for 'bigFish'>Big Fish</label><br>\
+    <div><label for '#bigFish'>Big Fish</label><br>\
     <input id='bigFish' type='text' maxlength='5' required></div>\
-    <input id='submit' style='margin-top:5px;' type='submit'></form>"
+    <input id='submit' style='margin-top:5px;' type='submit'>\
+    </form>"
     );
     $(".title").remove();
 
@@ -95,6 +97,10 @@ $(".finishedTeams").click(function(){
       property for total weight and big fish.*/
     $("#weighIn").submit(function(event){
       event.preventDefault();
+
+      if($("#breakOutWeights").checked = true){
+        console.log("Checked box!")
+      }
 
 //loop through the array and find the team we're entering weight for
       for(var i=0;i<teamArray.length;i++){
@@ -122,7 +128,6 @@ $(".finishedTeams").click(function(){
                 if(teamArray[i].bigFish > bigFishHolder){
                   bigFishHolder = teamArray[i].bigFish;
                   teamBigFishHolder = teamArray[i].teamNumber
-                  console.log("Big fish TEam: "+teamBigFishHolder+" Weight: "+bigFishHolder);
                 }
 
                 $(".fullTeamList").append(
